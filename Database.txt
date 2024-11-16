@@ -1,5 +1,5 @@
-create database pgdcsa;
-use pgdcsa;
+create database pgdcsa1;
+use pgdcsa1;
 create table students(
 ro int(2),
 fn varchar (15),
@@ -7,13 +7,14 @@ ln varchar (15),
 e varchar (15));
 desc students;
 alter table students add ge varchar (15);
-alter table students modify c_n int;
+alter table students add c_n int;
 alter table students modify ro int(2) primary key;
 create table courses(
 id int (2),
 cn varchar (15));
 desc courses;
 alter table courses modify id int;
+alter table students drop column gender;
 alter table courses modify id int primary key;
 alter table students add constraint fk_c foreign key (c_n) references courses(id);
 insert into courses values(101,'PGDCSA');
@@ -21,7 +22,8 @@ insert into courses values(102,'MCA');
 insert into courses values(103,'MBA');
 insert into courses value(104,'MSC');
 insert into courses value(105,'MSC_CS');
-select * from pgdcsa.students;
+select * from students;
+update students set dob='2003-06-30' where ro=4;
 insert into students values(1,'patel','bipin','bipin@gmail.com','M',102);
 insert into students values(2,'patel','sanoj','s@gmail.com','M',101);
 insert into students values(3,'mahato','rohan','r@gmail.com','M',101);
@@ -32,3 +34,16 @@ insert into students values(7,'shah','abhishek','a@gmail.com','M',102);
 insert into students values(8,'patel','anita','an@gmail.com','F',105);
 insert into students values(9,'yadav','ankit','y@gmail.com','M',103);
 insert into students values(10,'patil','amit','am@mail.com','M',102);
+update students set dob='2009-05-25' where ro=7;
+update students set dob='2000-01-30' where ro=8;
+update students set dob='2003-12-30' where ro=9;
+update students set dob='2003-11-30' where ro=10;
+select fn,ln from students where fn like 'M%';
+select fn,ln from students where ln like '%n';
+select fn,ln from students where fn like '_a%';
+select fn,ln from students where ln like 'r%';
+select fn,ln from students where ln like '%a_';
+select fn,ln from students where fn like 'M%' and ln like 'r%';
+select fn,ln from students where fn like '%o' and ln like '%n';
+alter table students add dob date;
+select * from students where ge='M';
